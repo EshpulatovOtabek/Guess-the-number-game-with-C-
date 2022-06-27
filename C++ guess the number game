@@ -1,0 +1,148 @@
+#include <iostream>
+#include <time.h>
+#include <windows.h>
+using namespace std;
+
+int arr[100];
+string name[100];
+int counter=0;
+int FFF(string str);
+int main();
+
+int TOP(int i, int attempt)
+{
+    system("cls");
+    cout<<"\t\t\t\tGuess the number between 1-100"<<endl;
+    int n;
+    cout<<"enter a number: ";
+    cin>>n;
+    attempt++;
+    if(n==i)
+    {
+        string d=" - ";
+        system("cls");
+        cout<<"\t\t\t\t\tYou've found the number with "<<attempt<<" attempts\n\n"<<endl;
+        cout<<"enter your name: ";
+        cin>>name[counter];
+        name[counter]=name[counter]+d+to_string(attempt);
+        arr[counter]=attempt;
+        counter++;
+        Sleep(3000);
+        return main();
+    }
+    else
+    {
+        system("cls");
+        cout<<"\t\t\t\t\tWrong guess!"<<endl;
+        if(i>n)
+        {
+            cout<<"Small number selected\n"<<endl;
+        }
+        else
+        {
+            cout<<"Big number selected\n"<<endl;
+        }
+        Sleep(2000);
+        TOP(i, attempt);
+    }
+}
+
+
+int RANKING()
+{
+    int select;
+    system("cls");
+
+    for(int i=0; i<counter; i++)
+    {
+        for(int j=0; j<counter; j++)
+        {
+            if(FFF(name[i])<FFF(name[j]))
+            {
+                string temp;
+
+                temp=name[i];
+                name[i]=name[j];
+                name[j]=temp;
+            }
+        }
+
+    }
+
+    for(int i=0; i<counter; i++)
+    {
+        cout<<i+1<<". "<<name[i]<<endl;
+    }
+    cout<<"\n\n\n";
+    cout<<"1.Back to main menu.\n";
+    cout<<"2.Exit.\n\n";
+    cout<<"enter your option: ";
+    cin>>select;
+
+    if(select==1)
+    {
+        cout<<main();
+
+    }
+    else if(select==2)
+    {
+        return 0;
+    }
+    else
+    {
+        cout<<"wrong!\n";
+        Sleep(2000);
+        RANKING();
+    }
+}
+
+int FFF(string str)
+{
+    string s="";
+    for(int i=0; i<str.size(); i++)
+    {
+        if(isdigit(str[i]) && str[i-1]==' ')
+        {
+            s+=str[i];
+        }
+    }
+
+    return stoi(s);
+}
+
+
+int main()
+{
+
+    system("cls");
+    int select;
+    srand(time(0));
+    cout<<"\t\t\t\t\tWelcome to \"Guess the number\" game\n\n"<<endl;
+    cout<<"1.Start the game\n";
+    cout<<"2.See your ranking\n";
+    cout<<"3.Exit\n\n";
+    cout<<"enter your option: ";
+    cin>>select;
+
+    if(select==1)
+    {
+        int n = 1+rand()%100;
+        int attempt=0;
+        cout<<TOP(n, attempt);
+    }
+    else if(select==2)
+    {
+        cout<<RANKING();
+    }
+    else if(select==3)
+    {
+        return 0;
+    }
+    else
+    {
+        cout<<"wrong!\n";
+    }
+
+    return 0;
+}
+
